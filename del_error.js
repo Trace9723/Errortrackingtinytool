@@ -1,10 +1,13 @@
 const sqlite3 = require('sqlite3').verbose();
-let errordb;
 let table_name;
-table_name = "errors";
+let key;
 
-// Requires "test.db" to function.
+table_name = "errors";
+key = 1;
+
 const db = new sqlite3.Database("./test.db", sqlite3.OPEN_READWRITE, (err) => {if (err) return console.error(err.message);});
 
-errordb = `CREATE TABLE ${table_name} (id INTEGER PRIMARY KEY, Name, Priority, Description, Person_Assigned, Date_Found, Status)`;
-db.run(errordb)
+sql = `DELETE FROM ${table_name} WHERE id = ?`;
+ db.run(sql, [key], (err) => {
+  if (err) return console.error(err.message);
+ });
